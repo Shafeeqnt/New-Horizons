@@ -73,6 +73,7 @@
     </div>
 
     <div class="hero-scroll">
+
       <span>Scroll</span>
       <div class="arrow"></div>
     </div>
@@ -225,8 +226,9 @@ const getParticleStyle = () => ({
 
 .hero-subtitle {
   margin: 1.5rem 0 2.5rem;
-  color: #ffffff;
+  color: #f4e4c1;
   font-size: 1.15rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .hero-cta {
@@ -263,12 +265,30 @@ const getParticleStyle = () => ({
   border-radius: 18px;
   padding: 1.2rem;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.stat-icon {
+  font-size: 2rem;
+  line-height: 1;
 }
 
 .stat-number {
   font-size: 1.8rem;
   font-weight: 700;
   color: #1f7a6b;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: #1c2d2a;
+  font-weight: 500;
+  white-space: nowrap;
 }
 
 .hero-scroll {
@@ -290,6 +310,7 @@ const getParticleStyle = () => ({
 }
 
 @media (max-width: 968px) {
+
   .hero-content {
     flex-direction: column;
     text-align: center;

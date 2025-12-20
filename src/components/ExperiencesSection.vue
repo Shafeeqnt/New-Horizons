@@ -3,7 +3,7 @@
     <div class="container">
       <div class="section-header">
         <span class="subtitle">Exclusive Adventures</span>
-        <h2>Premium <span class="text-gradient">Experiences</span></h2>
+        <h2>Exclusive <span class="text-gradient">Experiences Offering</span></h2>
         <p class="text-muted">Handpicked extraordinary adventures for discerning travelers</p>
       </div>
       

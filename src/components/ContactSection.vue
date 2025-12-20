@@ -29,11 +29,16 @@
                 <span class="contact-value">Room No 14/1954, City Tower<br>Manjeri 676121, Kerala, India</span>
               </div>
             </div>
-            <div class="contact-item">
-              <div class="contact-icon">🤝</div>
-              <div>
-                <span class="contact-label">Partners</span>
-                <span class="contact-value">HealthTech • Meditation & Yoga Center</span>
+            <div class="contact-item footer-brand-item">
+              <div class="footer-brand">
+                <img :src="logoUrl" alt="New Horizons" class="footer-logo" />
+                <div class="footer-brand-text">
+                  <span class="footer-name">New Horizons</span>
+                  <span class="footer-tagline">Where Healing Meets Paradise</span>
+                </div>
+                <p class="footer-desc">
+                  Premium international health tourism services in Kerala, India. Experience world-class healthcare, authentic Ayurveda, and breathtaking destinations.
+                </p>
               </div>
             </div>
           </div>
@@ -128,6 +133,7 @@
 
 <script setup>
 import { ref, computed } from 'vue'
+import logoUrl from '../assets/logo.jpg'
 
 const form = ref({
   name: '',
@@ -493,6 +499,50 @@ textarea {
 
 @keyframes spin {
   to { transform: rotate(360deg); }
+}
+
+/* Footer Brand Styles */
+.footer-brand-item {
+  display: block;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.footer-logo {
+  width: 60px;
+  height: auto;
+  border-radius: 8px;
+}
+
+.footer-brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-name {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-white);
+}
+
+.footer-tagline {
+  font-size: 0.8rem;
+  color: var(--color-accent);
+}
+
+.footer-desc {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.7;
+  margin: 0;
 }
 
 @media (max-width: 968px) {
