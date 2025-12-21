@@ -164,32 +164,33 @@ const handleSubmit = async () => {
   submittedPhone.value = form.value.phone
   submittedPackage.value = form.value.package
   
-  // Simulate sending (in production, connect to backend/email service)
-  // You can integrate with:
-  // 1. Web3Forms (free) - https://web3forms.com
-  // 2. Formspree - https://formspree.io
-  // 3. Your own backend API
-  
   try {
-    // Example: Send to Web3Forms (uncomment and add your access key)
-    // const response = await fetch('https://api.web3forms.com/submit', {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify({
-    //     access_key: 'YOUR_WEB3FORMS_KEY',
-    //     name: form.value.name,
-    //     email: form.value.email,
-    //     phone: form.value.phone,
-    //     package: form.value.package,
-    //     message: form.value.message,
-    //     subject: `New Inquiry: ${form.value.package || 'General'} - ${form.value.name}`
-    //   })
-    // })
+    // OPTION 1: Web3Forms (Recommended - Free & Easy)
+    // Sign up at https://web3forms.com and get your access key
+    const response = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        access_key: '4e55af16-4a96-4e31-a93a-b19477ce17aa', // Replace with your key from web3forms.com
+        from_name: 'New Horizons Website',
+        subject: `New Inquiry: ${form.value.package || 'General'} - ${form.value.name}`,
+        to: 'nthshafeeq64@gmail.com', // Your email
+        name: form.value.name,
+        email: form.value.email,
+        phone: form.value.phone || 'Not provided',
+        package: form.value.package || 'General Inquiry',
+        message: form.value.message,
+        replyto: form.value.email
+      })
+    })
     
-    // Simulate network delay
-    await new Promise(resolve => setTimeout(resolve, 1500))
+    const result = await response.json()
     
-    // Store inquiry in localStorage for demo (in production, this goes to your backend)
+    if (!response.ok || !result.success) {
+      throw new Error(result.message || 'Failed to send inquiry')
+    }
+    
+    // Store inquiry in localStorage as backup
     const inquiries = JSON.parse(localStorage.getItem('newHorizonsInquiries') || '[]')
     inquiries.push({
       ...form.value,
@@ -198,14 +199,14 @@ const handleSubmit = async () => {
     })
     localStorage.setItem('newHorizonsInquiries', JSON.stringify(inquiries))
     
-    console.log('Inquiry stored:', form.value)
+    console.log('Inquiry sent successfully:', form.value)
     
     isSubmitted.value = true
     form.value = { name: '', email: '', phone: '', package: '', message: '' }
     
   } catch (error) {
     console.error('Error submitting form:', error)
-    alert('There was an error sending your inquiry. Please try again or contact us directly.')
+    alert('There was an error sending your inquiry. Please try contacting us directly via WhatsApp or phone.')
   } finally {
     isSubmitting.value = false
   }

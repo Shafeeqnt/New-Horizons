@@ -46,7 +46,7 @@ onUnmounted(() => window.removeEventListener('scroll', handleScroll))
 .header {
   position: fixed;
   inset: 0 0 auto 0;
-  padding: 1.6rem 2rem;
+  padding: -0.4rem 2rem;
   z-index: 1000;
   transition: all 0.3s ease;
 }

@@ -23,13 +23,15 @@
           </div>
         </div>
 
-        <!-- Right: 3D Rotating Globe with Three.js -->
+        <!-- Right: Kathakali Performer with Animation -->
         <div class="globe-section">
-          <div class="globe-wrapper" ref="globeContainer"></div>
+          <div class="performer-wrapper">
+          
+          </div>
         </div>
       </div>
 
-      <!-- Impressive Popup Modal (Exactly as before) -->
+      <!-- Impressive Popup Modal -->
       <Transition name="modal">
         <div v-if="isModalOpen" class="modal-overlay" @click="closeModal">
           <div class="modal-container" @click.stop>
@@ -77,14 +79,9 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
-import * as THREE from 'three'
+import { ref } from 'vue'
 
 const isModalOpen = ref(false)
-const globeContainer = ref(null)
-
-let scene, camera, renderer, particles, glowSphere, animationId
-let mouseX = 0, mouseY = 0
 
 const cultureItems = [
   { icon: '🎭', title: 'Ancient Art Forms', description: 'Kathakali, Mohiniyattam, and Theyyam performances' },
@@ -112,229 +109,10 @@ const closeModal = () => {
   document.body.style.overflow = ''
 }
 
-const initGlobe = () => {
-  if (!globeContainer.value) return
-
-  // Scene setup
-  scene = new THREE.Scene()
-  
-  // Camera
-  camera = new THREE.PerspectiveCamera(
-    75,
-    globeContainer.value.clientWidth / globeContainer.value.clientHeight,
-    0.1,
-    1000
-  )
-  camera.position.z = 300
-
-  // Renderer
-  renderer = new THREE.WebGLRenderer({ 
-    antialias: true, 
-    alpha: true 
-  })
-  renderer.setSize(globeContainer.value.clientWidth, globeContainer.value.clientHeight)
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-  globeContainer.value.appendChild(renderer.domElement)
-
-  // Create particle sphere
-  const particleCount = 5000
-  const positions = new Float32Array(particleCount * 3)
-  const colors = new Float32Array(particleCount * 3)
-  const sizes = new Float32Array(particleCount)
-  
-  const radius = 100
-  
-  for (let i = 0; i < particleCount; i++) {
-    // Fibonacci sphere distribution
-    const phi = Math.acos(-1 + (2 * i) / particleCount)
-    const theta = Math.sqrt(particleCount * Math.PI) * phi
-    
-    const x = radius * Math.cos(theta) * Math.sin(phi)
-    const y = radius * Math.sin(theta) * Math.sin(phi)
-    const z = radius * Math.cos(phi)
-    
-    positions[i * 3] = x
-    positions[i * 3 + 1] = y
-    positions[i * 3 + 2] = z
-    
-    // Color palette: cyan, blue, purple
-    const colorType = Math.random()
-    if (colorType < 0.33) {
-      colors[i * 3] = 0.0 + Math.random() * 0.3     // R
-      colors[i * 3 + 1] = 0.7 + Math.random() * 0.3 // G
-      colors[i * 3 + 2] = 1.0                        // B
-    } else if (colorType < 0.66) {
-      colors[i * 3] = 0.3 + Math.random() * 0.3     // R
-      colors[i * 3 + 1] = 0.5 + Math.random() * 0.3 // G
-      colors[i * 3 + 2] = 1.0                        // B
-    } else {
-      colors[i * 3] = 0.6 + Math.random() * 0.4     // R
-      colors[i * 3 + 1] = 0.2 + Math.random() * 0.3 // G
-      colors[i * 3 + 2] = 1.0                        // B
-    }
-    
-    sizes[i] = Math.random() * 2 + 1
-  }
-  
-  const geometry = new THREE.BufferGeometry()
-  geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3))
-  geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3))
-  geometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1))
-  
-  // Custom shader material for glowing particles
-  const material = new THREE.ShaderMaterial({
-    uniforms: {
-      time: { value: 0 }
-    },
-    vertexShader: `
-      attribute float size;
-      attribute vec3 color;
-      varying vec3 vColor;
-      uniform float time;
-      
-      void main() {
-        vColor = color;
-        vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
-        
-        // Pulsing effect
-        float pulse = sin(time * 2.0 + length(position) * 0.02) * 0.5 + 1.0;
-        gl_PointSize = size * pulse * (300.0 / -mvPosition.z);
-        gl_Position = projectionMatrix * mvPosition;
-      }
-    `,
-    fragmentShader: `
-      varying vec3 vColor;
-      
-      void main() {
-        // Circular particles with soft glow
-        vec2 center = gl_PointCoord - vec2(0.5);
-        float dist = length(center);
-        
-        if (dist > 0.5) discard;
-        
-        // Soft edges with glow
-        float alpha = 1.0 - smoothstep(0.2, 0.5, dist);
-        alpha *= 0.9;
-        
-        gl_FragColor = vec4(vColor, alpha);
-      }
-    `,
-    transparent: true,
-    vertexColors: true,
-    blending: THREE.AdditiveBlending,
-    depthWrite: false
-  })
-  
-  particles = new THREE.Points(geometry, material)
-  scene.add(particles)
-
-  // Add ambient glow sphere
-  const glowGeometry = new THREE.SphereGeometry(radius * 0.98, 64, 64)
-  const glowMaterial = new THREE.ShaderMaterial({
-    uniforms: {
-      time: { value: 0 },
-      color1: { value: new THREE.Color(0x00ffff) },
-      color2: { value: new THREE.Color(0x8b5cf6) }
-    },
-    vertexShader: `
-      varying vec3 vNormal;
-      varying vec3 vPosition;
-      
-      void main() {
-        vNormal = normalize(normalMatrix * normal);
-        vPosition = position;
-        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-      }
-    `,
-    fragmentShader: `
-      uniform float time;
-      uniform vec3 color1;
-      uniform vec3 color2;
-      varying vec3 vNormal;
-      varying vec3 vPosition;
-      
-      void main() {
-        float intensity = pow(0.6 - dot(vNormal, vec3(0.0, 0.0, 1.0)), 2.0);
-        vec3 glow = mix(color1, color2, sin(time * 0.5 + vPosition.y * 0.01) * 0.5 + 0.5);
-        gl_FragColor = vec4(glow, intensity * 0.4);
-      }
-    `,
-    transparent: true,
-    blending: THREE.AdditiveBlending,
-    side: THREE.BackSide
-  })
-  
-  glowSphere = new THREE.Mesh(glowGeometry, glowMaterial)
-  scene.add(glowSphere)
-
-  // Mouse interaction
-  const onMouseMove = (event) => {
-    mouseX = (event.clientX / window.innerWidth) * 2 - 1
-    mouseY = -(event.clientY / window.innerHeight) * 2 + 1
-  }
-  
-  window.addEventListener('mousemove', onMouseMove)
-
-  // Animation loop
-  let time = 0
-  const animate = () => {
-    animationId = requestAnimationFrame(animate)
-    time += 0.01
-    
-    // Auto rotation
-    particles.rotation.y += 0.002
-    particles.rotation.x += 0.001
-    
-    glowSphere.rotation.y += 0.002
-    glowSphere.rotation.x += 0.001
-    
-    // Subtle mouse interaction
-    particles.rotation.y += mouseX * 0.001
-    particles.rotation.x += mouseY * 0.001
-    
-    // Update uniforms
-    material.uniforms.time.value = time
-    glowMaterial.uniforms.time.value = time
-    
-    renderer.render(scene, camera)
-  }
-  
-  animate()
-
-  // Handle resize
-  const handleResize = () => {
-    if (!globeContainer.value) return
-    const width = globeContainer.value.clientWidth
-    const height = globeContainer.value.clientHeight
-    
-    camera.aspect = width / height
-    camera.updateProjectionMatrix()
-    renderer.setSize(width, height)
-  }
-  
-  window.addEventListener('resize', handleResize)
-
-  return () => {
-    window.removeEventListener('resize', handleResize)
-    window.removeEventListener('mousemove', onMouseMove)
-  }
+const handleImageError = (e) => {
+  console.error('Image failed to load')
+  // Fallback or error handling
 }
-
-onMounted(() => {
-  initGlobe()
-})
-
-onUnmounted(() => {
-  if (animationId) {
-    cancelAnimationFrame(animationId)
-  }
-  if (renderer) {
-    renderer.dispose()
-  }
-  if (globeContainer.value && renderer && renderer.domElement) {
-    globeContainer.value.removeChild(renderer.domElement)
-  }
-})
 </script>
 
 <style scoped>
@@ -529,14 +307,18 @@ onUnmounted(() => {
   justify-content: center;
 }
 
-.globe-wrapper {
+/* Kathakali Performer Section */
+.performer-wrapper {
   position: relative;
   width: 600px;
   height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.globe-wrapper::before,
-.globe-wrapper::after {
+.performer-wrapper::before,
+.performer-wrapper::after {
   content: '';
   position: absolute;
   top: 50%;
@@ -547,34 +329,79 @@ onUnmounted(() => {
   z-index: 0;
 }
 
-.globe-wrapper::before {
+.performer-wrapper::before {
   width: 700px;
   height: 700px;
-  background: radial-gradient(circle, rgba(139, 92, 246, 0.25) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(255, 215, 0, 0.3) 0%, transparent 70%);
   filter: blur(60px);
-  animation: globe-pulse 4s ease-in-out infinite;
+  animation: performer-pulse 4s ease-in-out infinite;
 }
 
-.globe-wrapper::after {
+.performer-wrapper::after {
   width: 650px;
   height: 650px;
-  background: radial-gradient(circle, rgba(0, 255, 255, 0.2) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(220, 38, 38, 0.25) 0%, transparent 70%);
   filter: blur(50px);
-  animation: globe-pulse 6s ease-in-out infinite reverse;
+  animation: performer-pulse 6s ease-in-out infinite reverse;
 }
 
-@keyframes globe-pulse {
+@keyframes performer-pulse {
   0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
   50% { opacity: 1; transform: translate(-50%, -50%) scale(1.15); }
 }
 
-.globe-wrapper canvas {
+.kathakali-image {
   position: relative;
   z-index: 1;
-  filter: drop-shadow(0 0 60px rgba(139, 92, 246, 0.5));
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  /* Remove white background and blend with page background */
+  mix-blend-mode: multiply;
+  filter: drop-shadow(0 0 60px rgba(255, 215, 0, 0.4))
+          drop-shadow(0 0 30px rgba(220, 38, 38, 0.3));
+  animation: float-performer 4s ease-in-out infinite, 
+             glow-shift 8s ease-in-out infinite;
 }
 
-/* Modal Styles - EXACTLY AS BEFORE */
+@keyframes float-performer {
+  0%, 100% { 
+    transform: translateY(0px) scale(1);
+  }
+  50% { 
+    transform: translateY(-20px) scale(1.05);
+  }
+}
+
+@keyframes glow-shift {
+  0%, 100% {
+    filter: drop-shadow(0 0 60px rgba(255, 215, 0, 0.4))
+            drop-shadow(0 0 30px rgba(220, 38, 38, 0.3));
+  }
+  33% {
+    filter: drop-shadow(0 0 60px rgba(220, 38, 38, 0.5))
+            drop-shadow(0 0 30px rgba(34, 197, 94, 0.3));
+  }
+  66% {
+    filter: drop-shadow(0 0 60px rgba(34, 197, 94, 0.4))
+            drop-shadow(0 0 30px rgba(59, 130, 246, 0.3));
+  }
+}
+
+.performer-wrapper:hover .kathakali-image {
+  animation: float-performer 2s ease-in-out infinite,
+             glow-shift 4s ease-in-out infinite,
+             subtle-rotate 10s ease-in-out infinite;
+}
+
+@keyframes subtle-rotate {
+  0%, 100% { transform: translateY(-10px) scale(1.05) rotate(0deg); }
+  25% { transform: translateY(-15px) scale(1.08) rotate(-2deg); }
+  50% { transform: translateY(-10px) scale(1.05) rotate(0deg); }
+  75% { transform: translateY(-15px) scale(1.08) rotate(2deg); }
+}
+
+/* Modal Styles */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -869,7 +696,7 @@ onUnmounted(() => {
     height: 60px;
   }
 
-  .globe-wrapper {
+  .performer-wrapper {
     width: 400px;
     height: 400px;
   }
