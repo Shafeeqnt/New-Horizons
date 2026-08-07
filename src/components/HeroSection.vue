@@ -2,7 +2,10 @@
   <section class="hero">
     <!-- Background -->
     <div class="hero-bg">
-      <img :src="heroImage" alt="Health Tourism Kerala" class="hero-bg-image" />
+      <picture>
+        <source media="(max-width: 768px)" :srcset="heroImageMobile" />
+        <img :src="heroImage" alt="Health Tourism Kerala" class="hero-bg-image" />
+      </picture>
       <div class="hero-overlay"></div>
 
       <div class="hero-particles">
@@ -82,6 +85,7 @@
 
 <script setup>
 import heroImage from '../assets/images/hero.png'
+import heroImageMobile from '../assets/images/hero-mobile.jpg'
 
 const getParticleStyle = () => ({
   left: `${Math.random() * 100}%`,
@@ -100,6 +104,12 @@ const getParticleStyle = () => ({
 .hero-bg {
   position: absolute;
   inset: 0;
+}
+
+.hero-bg picture {
+  position: absolute;
+  inset: 0;
+  display: block;
 }
 
 .hero-bg-image {
