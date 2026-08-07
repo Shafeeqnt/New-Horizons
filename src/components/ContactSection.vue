@@ -31,9 +31,9 @@
             </div>
             <div class="contact-item footer-brand-item">
               <div class="footer-brand">
-                <img :src="logoUrl" alt="New Horizons" class="footer-logo" />
+                <img :src="logoUrl" alt="Cure Kerala" class="footer-logo" />
                 <div class="footer-brand-text">
-                  <span class="footer-name">New Horizons</span>
+                  <span class="footer-name">Cure Kerala</span>
                   <span class="footer-tagline">Where Healing Meets Paradise</span>
                 </div>
                 <p class="footer-desc">
@@ -133,7 +133,7 @@
 
 <script setup>
 import { ref, computed } from 'vue'
-import logoUrl from '../assets/logo.jpg'
+import logoUrl from '../assets/cure-kerala-icon.png'
 
 const form = ref({
   name: '',
@@ -172,9 +172,9 @@ const handleSubmit = async () => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         access_key: '4e55af16-4a96-4e31-a93a-b19477ce17aa', // Replace with your key from web3forms.com
-        from_name: 'New Horizons Website',
+        from_name: 'Cure Kerala Website',
         subject: `New Inquiry: ${form.value.package || 'General'} - ${form.value.name}`,
-        to: 'nthshafeeq64@gmail.com', // Your email
+        to: 'info@curekerala.com', // Your email
         name: form.value.name,
         email: form.value.email,
         phone: form.value.phone || 'Not provided',
@@ -191,13 +191,13 @@ const handleSubmit = async () => {
     }
     
     // Store inquiry in localStorage as backup
-    const inquiries = JSON.parse(localStorage.getItem('newHorizonsInquiries') || '[]')
+    const inquiries = JSON.parse(localStorage.getItem('cureKeralaInquiries') || '[]')
     inquiries.push({
       ...form.value,
       timestamp: new Date().toISOString(),
       id: Date.now()
     })
-    localStorage.setItem('newHorizonsInquiries', JSON.stringify(inquiries))
+    localStorage.setItem('cureKeralaInquiries', JSON.stringify(inquiries))
     
     console.log('Inquiry sent successfully:', form.value)
     
@@ -551,9 +551,40 @@ textarea {
     grid-template-columns: 1fr;
     gap: 2rem;
   }
-  
+
   .form-row {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-form-wrapper {
+    padding: 1.75rem 1.25rem;
+  }
+
+  .contact-icon {
+    width: 42px;
+    height: 42px;
+    font-size: 1.25rem;
+  }
+
+  .services-tags {
+    gap: 0.4rem;
+  }
+
+  .service-tag {
+    font-size: 0.75rem;
+    padding: 0.35rem 0.7rem;
+  }
+
+  input,
+  select,
+  textarea {
+    padding: 0.85rem 1rem;
+  }
+
+  .success-actions {
+    gap: 0.75rem;
   }
 }
 </style>

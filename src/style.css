@@ -1,4 +1,4 @@
-/* ===== NEW HORIZONS - Ultra-Premium CSS Design System ===== */
+/* ===== CURE KERALA - Ultra-Premium CSS Design System ===== */
 /* Pinterest-Level Aesthetic Design */
 @import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap');
 
@@ -849,6 +849,10 @@ p {
     padding: var(--space-lg) var(--space-sm);
   }
 
+  .container {
+    padding: 0 var(--space-sm);
+  }
+
   h1 {
     font-size: 2.5rem;
   }
@@ -861,6 +865,46 @@ p {
     padding: 0.875rem 1.5rem;
     font-size: 0.875rem;
   }
+}
+
+@media (max-width: 480px) {
+  .section {
+    padding: var(--space-md) 1rem;
+  }
+
+  .container {
+    padding: 0 1rem;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.6rem;
+  }
+
+  h3 {
+    font-size: 1.25rem;
+  }
+
+  .btn {
+    padding: 0.75rem 1.25rem;
+    font-size: 0.8rem;
+  }
+
+  .grid-2,
+  .grid-3,
+  .grid-4 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Global overflow safety net */
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 /* ===== Scrollbar ===== */

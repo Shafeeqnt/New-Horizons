@@ -714,4 +714,61 @@ const handleImageError = (e) => {
     grid-template-columns: 1fr;
   }
 }
+
+@media (max-width: 480px) {
+  .culture-discover-section {
+    padding: 3rem 1rem;
+  }
+
+  .trigger-title {
+    font-size: 1.9rem;
+  }
+
+  .trigger-subtitle {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .switch-track {
+    width: 130px;
+    height: 65px;
+  }
+
+  .switch-thumb {
+    width: 48px;
+    height: 48px;
+  }
+
+  .switch-icon {
+    font-size: 1.5rem;
+  }
+
+  .performer-wrapper {
+    width: 260px;
+    height: 260px;
+  }
+
+  .modal-overlay {
+    padding: 1rem;
+  }
+
+  .modal-content {
+    padding: 1.5rem;
+  }
+
+  .modal-close {
+    width: 40px;
+    height: 40px;
+    top: 1rem;
+    right: 1rem;
+  }
+
+  .culture-text h2 {
+    font-size: 1.75rem;
+  }
+
+  .food-card {
+    padding: 1.75rem;
+  }
+}
 </style>

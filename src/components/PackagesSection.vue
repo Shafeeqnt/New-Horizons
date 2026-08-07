@@ -92,7 +92,7 @@ const packages = [
 <style scoped>
 .packages-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(380px, 100%), 1fr));
   gap: 2.5rem;
   align-items: start;
 }
@@ -264,5 +264,52 @@ const packages = [
 .package-cta {
   width: 100%;
   text-align: center;
+}
+
+@media (max-width: 768px) {
+  .packages-grid {
+    gap: 2rem;
+  }
+
+  .package-featured {
+    transform: none;
+  }
+
+  .package-featured:hover {
+    transform: translateY(-12px);
+  }
+
+  .package-header {
+    padding: 2rem;
+  }
+
+  .package-content {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .package-header {
+    padding: 1.75rem 1.5rem;
+  }
+
+  .package-name {
+    font-size: 1.25rem;
+  }
+
+  .package-content {
+    padding: 1.25rem;
+  }
+
+  .itinerary-day {
+    gap: 0.75rem;
+  }
+
+  .package-ribbon {
+    top: 14px;
+    right: -32px;
+    padding: 0.35rem 2.5rem;
+    font-size: 0.7rem;
+  }
 }
 </style>

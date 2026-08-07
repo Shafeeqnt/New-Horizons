@@ -180,7 +180,7 @@ const features = [
     icon: '💰',
     title: 'Affordable Excellence',
     description:
-      'World-class healthcare with internationally accredited hospitals at 60–80% lower cost than Western countries.'
+      'World-class healthcare with internationally accredited hospitals at 25% lower cost than Western countries.'
   },
   {
     icon: '👨‍⚕️',
@@ -253,7 +253,7 @@ const features = [
 
 .features-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
   gap: 1.5rem;
   margin-bottom: var(--space-xl);
 }
@@ -843,6 +843,45 @@ const features = [
 
   .cta-text {
     font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .feature-card {
+    padding: 2rem 1.25rem;
+  }
+
+  .healing-cta {
+    padding: 2.5rem 1.5rem;
+  }
+
+  .cta-button {
+    padding: 0.9rem 1.75rem;
+    font-size: 0.95rem;
+  }
+
+  .healing-intro-title {
+    font-size: 1.5rem;
+  }
+
+  .healing-title {
+    font-size: 1.5rem;
+  }
+
+  .gallery-main {
+    height: 180px;
+  }
+
+  .gallery-secondary {
+    height: 110px;
+  }
+
+  .stats-card {
+    flex-direction: row;
+  }
+
+  .connector-badge {
+    padding: 1rem 1.25rem;
   }
 }
 </style>

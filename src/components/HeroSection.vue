@@ -55,7 +55,7 @@
         <div class="hero-stats">
           <div class="stat-card">
             <span class="stat-icon">💰</span>
-            <span class="stat-number">60–80%</span>
+            <span class="stat-number">25%</span>
             <span class="stat-label">Lower Cost</span>
           </div>
           <div class="stat-card">
@@ -314,9 +314,62 @@ const getParticleStyle = () => ({
   .hero-content {
     flex-direction: column;
     text-align: center;
+    padding: 7rem 1.5rem 3rem;
   }
   .hero-stats {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-content {
+    padding: 6rem 1rem 2.5rem;
+    gap: 2rem;
+  }
+
+  .globe {
+    width: 160px;
+    height: 160px;
+  }
+
+  .hero-title {
+    font-size: 2.25rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+
+  .hero-badge {
+    font-size: 0.65rem;
+    padding: 0.5rem 1rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .hero-cta {
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+  }
+
+  .hero-cta .btn {
+    width: 100%;
+  }
+
+  .stat-card {
+    padding: 0.9rem;
+  }
+
+  .stat-icon {
+    font-size: 1.5rem;
+  }
+
+  .stat-number {
+    font-size: 1.4rem;
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
   }
 }
 </style>

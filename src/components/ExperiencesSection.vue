@@ -202,4 +202,19 @@ const experiences = [
     grid-template-columns: 1fr;
   }
 }
+
+@media (max-width: 480px) {
+  .experience-image-wrapper,
+  .experience-card.featured .experience-image-wrapper {
+    height: 220px;
+  }
+
+  .experience-content {
+    padding: 1.5rem;
+  }
+
+  .experience-title {
+    font-size: 1.25rem;
+  }
+}
 </style>

@@ -98,7 +98,7 @@
           <div class="mission-icon">✨</div>
           <h3 class="mission-title">Our Shared Mission</h3>
           <p class="mission-text">
-            Together, we've created New Horizons to make healing a superpower accessible to all. 
+            Together, we've created Cure Kerala to make healing a superpower accessible to all.
             By combining world-class medical expertise, authentic Ayurvedic traditions, and the 
             serene beauty of Kerala, we offer transformative experiences that heal the body, 
             calm the mind, and rejuvenate the spirit.
@@ -587,6 +587,58 @@
 
   .value-item {
     padding: 0.8rem 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .our-story {
+    padding: 4rem 1rem;
+  }
+
+  .founder-card {
+    padding: 1.5rem 1.25rem;
+  }
+
+  .founder-image {
+    width: 130px;
+    height: 130px;
+  }
+
+  .placeholder-icon {
+    font-size: 3.5rem;
+  }
+
+  .founder-name {
+    font-size: 1.5rem;
+  }
+
+  .founder-stats {
+    gap: 1rem;
+  }
+
+  .stat-value {
+    font-size: 1.4rem;
+  }
+
+  .mission-statement {
+    padding: 2rem 1.25rem;
+  }
+
+  .mission-title {
+    font-size: 1.5rem;
+  }
+
+  .mission-text {
+    font-size: 1rem;
+  }
+
+  .mission-values {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .value-item {
+    justify-content: center;
   }
 }
 </style>

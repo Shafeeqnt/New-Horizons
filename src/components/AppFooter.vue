@@ -3,9 +3,9 @@
     <div class="container">
       <div class="footer-content">
         <div class="footer-brand">
-          <img :src="logoUrl" alt="New Horizons" class="footer-logo" />
+          <img :src="logoUrl" alt="Cure Kerala" class="footer-logo" />
           <div class="footer-brand-text">
-            <span class="footer-name">New Horizons</span>
+            <span class="footer-name">Cure Kerala</span>
             <span class="footer-tagline">Where Healing Meets Paradise</span>
           </div>
           <p class="footer-desc">
@@ -44,7 +44,7 @@
       </div>
       
       <div class="footer-bottom">
-        <p>&copy; {{ currentYear }} New Horizons. All rights reserved.</p>
+        <p>&copy; {{ currentYear }} Cure Kerala. All rights reserved.</p>
         <p class="footer-made">Made with ❤️ for travelers seeking healing and paradise</p>
       </div>
     </div>
@@ -52,7 +52,7 @@
 </template>
 
 <script setup>
-import logoUrl from '../assets/logo.jpg'
+import logoUrl from '../assets/cure-kerala-icon.png'
 
 const currentYear = new Date().getFullYear()
 </script>
