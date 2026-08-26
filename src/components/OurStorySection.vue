@@ -20,10 +20,7 @@
           <div class="founder-image-wrapper">
             <div class="image-glow"></div>
             <div class="founder-image founder-1">
-              <!-- Placeholder for founder image - will be added later -->
-              <div class="image-placeholder">
-                <span class="placeholder-icon">🌍</span>
-              </div>
+              <img :src="explorerImage" alt="The Explorer" class="founder-photo" />
             </div>
             <div class="founder-badge">Tourism Expert</div>
           </div>
@@ -32,11 +29,11 @@
             <p class="founder-role">Global Tourism Consultant</p>
             <div class="founder-stats">
               <div class="stat-item">
-                <span class="stat-value">50+</span>
+                <span class="stat-value">20+</span>
                 <span class="stat-label">Countries Visited</span>
               </div>
               <div class="stat-item">
-                <span class="stat-value">15+</span>
+                <span class="stat-value">7+</span>
                 <span class="stat-label">Years Experience</span>
               </div>
             </div>
@@ -63,10 +60,7 @@
           <div class="founder-image-wrapper">
             <div class="image-glow"></div>
             <div class="founder-image founder-2">
-              <!-- Placeholder for founder image - will be added later -->
-              <div class="image-placeholder">
-                <span class="placeholder-icon">🏥</span>
-              </div>
+              <img :src="healerImage" alt="The Healer" class="founder-photo" />
             </div>
             <div class="founder-badge">Healthcare Pioneer</div>
           </div>
@@ -131,7 +125,8 @@
 </template>
 
 <script setup>
-// Component logic can be added here if needed
+import explorerImage from '../assets/PHOTO-2026-08-16-17-03-47 (1).jpg'
+import healerImage from '../assets/PHOTO-2026-08-16-17-03-47.jpg'
 </script>
 
 <style scoped>
@@ -252,18 +247,10 @@
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
 }
 
-.image-placeholder {
+.founder-photo {
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, #e0f2f1, #b2dfdb);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.placeholder-icon {
-  font-size: 5rem;
-  opacity: 0.7;
+  object-fit: cover;
 }
 
 .image-glow {

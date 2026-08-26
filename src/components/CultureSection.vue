@@ -23,10 +23,30 @@
           </div>
         </div>
 
-        <!-- Right: Kathakali Performer with Animation -->
+        <!-- Right: Living Heritage Orbit -->
         <div class="globe-section">
-          <div class="performer-wrapper">
-          
+          <div class="culture-orbit">
+            <div class="orbit-ring ring-outer"></div>
+            <div class="orbit-ring ring-inner"></div>
+
+            <div class="orbit-center">
+              <span class="orbit-center-icon">🪔</span>
+              <span class="orbit-center-label">Living<br />Heritage</span>
+            </div>
+
+            <div class="orbit-group">
+              <div
+                class="orbit-item"
+                v-for="(item, index) in heritageItems"
+                :key="item.label"
+                :style="{ transform: `rotate(${index * (360 / heritageItems.length)}deg) translateX(var(--orbit-radius)) rotate(${-index * (360 / heritageItems.length)}deg)` }"
+              >
+                <div class="orbit-item-inner">
+                  <span class="orbit-icon">{{ item.icon }}</span>
+                  <span class="orbit-label">{{ item.label }}</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -90,6 +110,15 @@ const cultureItems = [
   { icon: '🤝', title: 'Warm Hospitality', description: 'Harmonious blend of Hindu, Muslim, and Christian communities' }
 ]
 
+const heritageItems = [
+  { icon: '🎭', label: 'Kathakali' },
+  { icon: '🛶', label: 'Backwaters' },
+  { icon: '🌿', label: 'Ayurveda' },
+  { icon: '🎉', label: 'Onam' },
+  { icon: '🐘', label: 'Festivals' },
+  { icon: '🍛', label: 'Sadya Feast' }
+]
+
 const foodItems = [
   '🍛 Beef curry, spicy chicken, mutton porotta',
   '🦐 Fish curry, prawns in coconut gravies',
@@ -109,10 +138,6 @@ const closeModal = () => {
   document.body.style.overflow = ''
 }
 
-const handleImageError = (e) => {
-  console.error('Image failed to load')
-  // Fallback or error handling
-}
 </script>
 
 <style scoped>
@@ -307,98 +332,158 @@ const handleImageError = (e) => {
   justify-content: center;
 }
 
-/* Kathakali Performer Section */
-.performer-wrapper {
+/* Living Heritage Orbit */
+.culture-orbit {
   position: relative;
-  width: 600px;
-  height: 600px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 560px;
+  height: 560px;
+  --orbit-radius: 215px;
 }
 
-.performer-wrapper::before,
-.performer-wrapper::after {
-  content: '';
+.orbit-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.ring-outer {
+  width: 520px;
+  height: 520px;
+  transform: translate(-50%, -50%);
+  border: 1px dashed rgba(255, 215, 0, 0.18);
+  animation: ring-spin 50s linear infinite;
+}
+
+.ring-inner {
+  width: 380px;
+  height: 380px;
+  transform: translate(-50%, -50%);
+  border: 1px dashed rgba(139, 92, 246, 0.2);
+  animation: ring-spin 35s linear infinite reverse;
+}
+
+@keyframes ring-spin {
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.orbit-center {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  z-index: 3;
+  width: 170px;
+  height: 170px;
   border-radius: 50%;
-  pointer-events: none;
-  z-index: 0;
+  background: linear-gradient(145deg, #1e293b, #0f172a);
+  border: 2px solid rgba(255, 215, 0, 0.35);
+  box-shadow:
+    0 0 40px rgba(139, 92, 246, 0.5),
+    0 0 80px rgba(236, 72, 153, 0.3),
+    inset 0 0 30px rgba(255, 255, 255, 0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  animation: center-pulse 4s ease-in-out infinite;
 }
 
-.performer-wrapper::before {
-  width: 700px;
-  height: 700px;
-  background: radial-gradient(circle, rgba(255, 215, 0, 0.3) 0%, transparent 70%);
-  filter: blur(60px);
-  animation: performer-pulse 4s ease-in-out infinite;
+@keyframes center-pulse {
+  0%, 100% { box-shadow: 0 0 40px rgba(139, 92, 246, 0.5), 0 0 80px rgba(236, 72, 153, 0.3), inset 0 0 30px rgba(255, 255, 255, 0.05); }
+  50% { box-shadow: 0 0 60px rgba(139, 92, 246, 0.7), 0 0 110px rgba(236, 72, 153, 0.5), inset 0 0 30px rgba(255, 255, 255, 0.08); }
 }
 
-.performer-wrapper::after {
-  width: 650px;
-  height: 650px;
-  background: radial-gradient(circle, rgba(220, 38, 38, 0.25) 0%, transparent 70%);
-  filter: blur(50px);
-  animation: performer-pulse 6s ease-in-out infinite reverse;
+.orbit-center-icon {
+  font-size: 3.2rem;
+  line-height: 1;
+  filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.6));
+  animation: flicker 2s ease-in-out infinite;
 }
 
-@keyframes performer-pulse {
-  0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
-  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.15); }
+@keyframes flicker {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(1.08); }
 }
 
-.kathakali-image {
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  /* Remove white background and blend with page background */
-  mix-blend-mode: multiply;
-  filter: drop-shadow(0 0 60px rgba(255, 215, 0, 0.4))
-          drop-shadow(0 0 30px rgba(220, 38, 38, 0.3));
-  animation: float-performer 4s ease-in-out infinite, 
-             glow-shift 8s ease-in-out infinite;
+.orbit-center-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #fff;
+  text-align: center;
+  line-height: 1.3;
+  opacity: 0.85;
 }
 
-@keyframes float-performer {
-  0%, 100% { 
-    transform: translateY(0px) scale(1);
-  }
-  50% { 
-    transform: translateY(-20px) scale(1.05);
-  }
+.orbit-group {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  animation: orbit-spin 34s linear infinite;
 }
 
-@keyframes glow-shift {
-  0%, 100% {
-    filter: drop-shadow(0 0 60px rgba(255, 215, 0, 0.4))
-            drop-shadow(0 0 30px rgba(220, 38, 38, 0.3));
-  }
-  33% {
-    filter: drop-shadow(0 0 60px rgba(220, 38, 38, 0.5))
-            drop-shadow(0 0 30px rgba(34, 197, 94, 0.3));
-  }
-  66% {
-    filter: drop-shadow(0 0 60px rgba(34, 197, 94, 0.4))
-            drop-shadow(0 0 30px rgba(59, 130, 246, 0.3));
-  }
+@keyframes orbit-spin {
+  to { transform: rotate(360deg); }
 }
 
-.performer-wrapper:hover .kathakali-image {
-  animation: float-performer 2s ease-in-out infinite,
-             glow-shift 4s ease-in-out infinite,
-             subtle-rotate 10s ease-in-out infinite;
+.orbit-item {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
 }
 
-@keyframes subtle-rotate {
-  0%, 100% { transform: translateY(-10px) scale(1.05) rotate(0deg); }
-  25% { transform: translateY(-15px) scale(1.08) rotate(-2deg); }
-  50% { transform: translateY(-10px) scale(1.05) rotate(0deg); }
-  75% { transform: translateY(-15px) scale(1.08) rotate(2deg); }
+.orbit-item-inner {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 18px;
+  padding: 0.85rem 0.9rem;
+  min-width: 88px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+  animation: orbit-counter 34s linear infinite;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+@keyframes orbit-counter {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(-360deg); }
+}
+
+.orbit-item-inner:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 215, 0, 0.4);
+}
+
+.culture-orbit:hover .orbit-group,
+.culture-orbit:hover .orbit-item-inner {
+  animation-play-state: paused;
+}
+
+.orbit-icon {
+  font-size: 1.7rem;
+  line-height: 1;
+  filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.3));
+}
+
+.orbit-label {
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: #fff;
+  text-align: center;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
 }
 
 /* Modal Styles */
@@ -696,11 +781,44 @@ const handleImageError = (e) => {
     height: 60px;
   }
 
-  .performer-wrapper {
+  .culture-orbit {
     width: 400px;
     height: 400px;
+    --orbit-radius: 150px;
   }
-  
+
+  .ring-outer {
+    width: 360px;
+    height: 360px;
+  }
+
+  .ring-inner {
+    width: 260px;
+    height: 260px;
+  }
+
+  .orbit-center {
+    width: 130px;
+    height: 130px;
+  }
+
+  .orbit-center-icon {
+    font-size: 2.4rem;
+  }
+
+  .orbit-item-inner {
+    padding: 0.6rem 0.7rem;
+    min-width: 72px;
+  }
+
+  .orbit-icon {
+    font-size: 1.3rem;
+  }
+
+  .orbit-label {
+    font-size: 0.6rem;
+  }
+
   .modal-content {
     padding: 2rem;
   }
@@ -743,9 +861,46 @@ const handleImageError = (e) => {
     font-size: 1.5rem;
   }
 
-  .performer-wrapper {
-    width: 260px;
-    height: 260px;
+  .culture-orbit {
+    width: 280px;
+    height: 280px;
+    --orbit-radius: 100px;
+  }
+
+  .ring-outer {
+    width: 250px;
+    height: 250px;
+  }
+
+  .ring-inner {
+    width: 175px;
+    height: 175px;
+  }
+
+  .orbit-center {
+    width: 92px;
+    height: 92px;
+  }
+
+  .orbit-center-icon {
+    font-size: 1.7rem;
+  }
+
+  .orbit-center-label {
+    font-size: 0.55rem;
+  }
+
+  .orbit-item-inner {
+    padding: 0.4rem 0.5rem;
+    min-width: 52px;
+  }
+
+  .orbit-icon {
+    font-size: 1rem;
+  }
+
+  .orbit-label {
+    display: none;
   }
 
   .modal-overlay {

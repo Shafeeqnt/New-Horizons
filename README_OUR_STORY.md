@@ -123,7 +123,7 @@ Edit the founder role text:
 Modify the statistics to reflect actual numbers:
 ```vue
 <div class="stat-item">
-  <span class="stat-value">50+</span>
+  <span class="stat-value">20+</span>
   <span class="stat-label">Countries Visited</span>
 </div>
 ```

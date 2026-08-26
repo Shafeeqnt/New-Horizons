@@ -45,11 +45,6 @@
           Meets <span class="text-gradient">Paradise</span>
         </h1>
 
-        <p class="hero-subtitle">
-          World-class healthcare, authentic Ayurveda, and serene destinations
-          in God's Own Country — Kerala, India.
-        </p>
-
         <div class="hero-cta">
           <a href="#packages" class="btn btn-gold">Explore Packages</a>
           <a href="#contact" class="btn btn-glass">Plan Your Journey</a>
@@ -58,13 +53,13 @@
         <div class="hero-stats">
           <div class="stat-card">
             <span class="stat-icon">💰</span>
-            <span class="stat-number">25%</span>
+            <span class="stat-number">25-60%</span>
             <span class="stat-label">Lower Cost</span>
           </div>
           <div class="stat-card">
             <span class="stat-icon">🌿</span>
             <span class="stat-number">5000+</span>
-            <span class="stat-label">Years Ayurveda</span>
+            <span class="stat-label">Years Healing</span>
           </div>
           <div class="stat-card">
             <span class="stat-icon">❤️</span>
@@ -234,13 +229,6 @@ const getParticleStyle = () => ({
   -webkit-text-fill-color: transparent;
 }
 
-.hero-subtitle {
-  margin: 1.5rem 0 2.5rem;
-  color: #f4e4c1;
-  font-size: 1.15rem;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-}
-
 .hero-cta {
   display: flex;
   gap: 1.2rem;
@@ -344,10 +332,6 @@ const getParticleStyle = () => ({
 
   .hero-title {
     font-size: 2.25rem;
-  }
-
-  .hero-subtitle {
-    font-size: 1rem;
   }
 
   .hero-badge {

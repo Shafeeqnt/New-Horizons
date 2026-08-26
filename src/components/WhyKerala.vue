@@ -124,8 +124,8 @@
             <div class="gallery-secondary">
               <div class="stats-card">
                 <div class="stat-item-mini">
-                  <span class="stat-number-mini">JCI</span>
-                  <span class="stat-label-mini">Accredited</span>
+                  <span class="stat-number-mini">100%</span>
+                  <span class="stat-label-mini">Certified</span>
                 </div>
                 <div class="stat-item-mini">
                   <span class="stat-number-mini">60-80%</span>
@@ -180,7 +180,7 @@ const features = [
     icon: '💰',
     title: 'Affordable Excellence',
     description:
-      'World-class healthcare with internationally accredited hospitals at 25% lower cost than Western countries.'
+      'World-class healthcare with internationally accredited hospitals at 50-60% lower cost than Western countries.'
   },
   {
     icon: '👨‍⚕️',
@@ -232,6 +232,12 @@ const features = [
   position: absolute;
   inset: 0;
   z-index: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(9, 18, 16, 0.92) 0%,
+    rgba(11, 138, 111, 0.55) 45%,
+    rgba(9, 18, 16, 0.92) 100%
+  );
 }
 
 .content-wrapper {

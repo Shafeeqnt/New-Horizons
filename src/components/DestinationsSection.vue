@@ -65,9 +65,9 @@ const allDestinations = [
     isNewlyAdded: false
   },
   {
-    name: 'Kovalam',
-    tag: 'Beach Paradise',
-    description: 'A paradise for beach lovers with golden sands and Ayurvedic retreats.',
+    name: 'Varkala',
+    tag: 'Cliff Beach',
+    description: 'A dramatic clifftop beach with natural springs, sunset views, and Ayurvedic retreats.',
     image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80',
     isNewlyAdded: false
   },
