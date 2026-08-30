@@ -224,7 +224,7 @@ const getParticleStyle = () => ({
 }
 
 .text-gradient {
-  background: linear-gradient(120deg, #1f7a6b, #4fbdb0, #f4c97a);
+  background: linear-gradient(120deg, #0d3d35, #145c50, #b8860b);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }

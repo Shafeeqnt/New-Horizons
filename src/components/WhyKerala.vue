@@ -128,7 +128,7 @@
                   <span class="stat-label-mini">Certified</span>
                 </div>
                 <div class="stat-item-mini">
-                  <span class="stat-number-mini">60-80%</span>
+                  <span class="stat-number-mini">25-60%</span>
                   <span class="stat-label-mini">Cost Savings</span>
                 </div>
               </div>
