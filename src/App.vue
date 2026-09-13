@@ -6,6 +6,7 @@ import WhyKerala from './components/WhyKerala.vue'
 import DestinationsSection from './components/DestinationsSection.vue'
 import ExperiencesSection from './components/ExperiencesSection.vue'
 import PackagesSection from './components/PackagesSection.vue'
+import AchievementsSection from './components/AchievementsSection.vue'
 import CultureSection from './components/CultureSection.vue'
 import ContactSection from './components/ContactSection.vue'
 </script>
@@ -20,6 +21,7 @@ import ContactSection from './components/ContactSection.vue'
       <DestinationsSection />
       <ExperiencesSection />
       <PackagesSection />
+      <AchievementsSection />
       <CultureSection />
       <ContactSection />
     </main>
