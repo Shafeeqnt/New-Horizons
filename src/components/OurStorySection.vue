@@ -60,13 +60,13 @@
           <div class="founder-image-wrapper">
             <div class="image-glow"></div>
             <div class="founder-image founder-2">
-              <img :src="healerImage" alt="The Healer" class="founder-photo" />
+              <img :src="healerImage" alt="The Strategist" class="founder-photo" />
             </div>
-            <div class="founder-badge">Healthcare Pioneer</div>
+            <div class="founder-badge">Health Tech Engineer</div>
           </div>
           <div class="founder-content">
-            <h3 class="founder-name">The Healer</h3>
-            <p class="founder-role">Medical Tourism Specialist</p>
+            <h3 class="founder-name">The Strategist</h3>
+            <p class="founder-role">Health Tech Specialist</p>
             <div class="founder-stats">
               <div class="stat-item">
                 <span class="stat-value">1000+</span>
