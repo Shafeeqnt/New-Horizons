@@ -76,20 +76,12 @@
         <p class="partner-logos-label">In Collaboration With</p>
         <div class="partner-logos-grid">
           <div class="partner-logo-card" v-for="(p, i) in partnerBrands" :key="i">
-            <div class="partner-logo-frame">
+            <div class="partner-logo-frame" :class="{ dark: p.dark }">
               <img :src="p.logo" :alt="p.name" class="partner-logo-img" />
             </div>
             <span class="partner-logo-name">{{ p.name }}</span>
             <span class="partner-logo-role">{{ p.role }}</span>
           </div>
-        </div>
-      </div>
-
-      <!-- Trust Strip -->
-      <div class="achv-trust-strip">
-        <div class="trust-pill" v-for="(t, i) in trustPoints" :key="i">
-          <span class="trust-icon">{{ t.icon }}</span>
-          <span class="trust-text">{{ t.text }}</span>
         </div>
       </div>
     </div>
@@ -107,6 +99,8 @@ import ceoSummitPhoto from '../assets/Partners/ceo with ex cheif minister of ker
 import ceoUnqPhoto from '../assets/Partners/UNQ demo if ceo.jpg'
 import rainbowLogo from '../assets/Partners/Rainbow Jeevalayalam Logo.jpg'
 import vynaLogo from '../assets/Partners/Vyna Resort Logo.jpg'
+import unqLogo from '../assets/Partners/UNQ LOGO.jpg'
+import maqLogo from '../assets/Partners/MAQ HOLIDAYS LOGO.png'
 
 const achievements = [
   {
@@ -172,15 +166,9 @@ const hiddenAchievements = achievements.filter((a) => a.hidden)
 
 const partnerBrands = [
   { logo: rainbowLogo, name: 'Rainbow Jeevalayam', role: 'Wellness & Community Care Partner' },
-  { logo: vynaLogo, name: 'Vyna Hillock Resorts', role: 'Hospitality & Recovery Stay Partner' }
-]
-
-const trustPoints = [
-  { icon: '🪷', text: 'Decades of Ayurvedic Mastery' },
-  { icon: '👑', text: 'Trusted by Public Leaders' },
-  { icon: '🏨', text: 'Hospitality Partnerships' },
-  { icon: '💡', text: 'Healthtech Innovation' },
-  { icon: '📰', text: 'Featured in Regional Media' }
+  { logo: vynaLogo, name: 'Vyna Hillock Resorts', role: 'Hospitality & Recovery Stay Partner' },
+  { logo: unqLogo, name: 'UnQ', role: 'Healthtech Partner', dark: true },
+  { logo: maqLogo, name: 'MAQ Holidays', role: 'Travel & Tour Partner' }
 ]
 
 const isModalOpen = ref(false)
@@ -264,7 +252,7 @@ onUnmounted(() => {
 .achv-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-auto-rows: 220px;
+  grid-auto-rows: minmax(220px, auto);
   gap: 1.25rem;
   margin-bottom: 3rem;
 }
@@ -607,6 +595,12 @@ onUnmounted(() => {
   justify-content: center;
   overflow: hidden;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  transition: background 0.35s ease;
+}
+
+.partner-logo-frame.dark {
+  background: #0b1614;
+  border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .partner-logo-img {
@@ -638,47 +632,11 @@ onUnmounted(() => {
   color: #1f7a6b;
 }
 
-/* Trust Strip */
-.achv-trust-strip {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1rem;
-}
-
-.trust-pill {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  background: linear-gradient(135deg, rgba(79, 189, 176, 0.15), rgba(244, 201, 122, 0.1));
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  padding: 0.8rem 1.5rem;
-  border-radius: 999px;
-  transition: all 0.3s ease;
-}
-
-.trust-pill:hover {
-  transform: translateY(-3px);
-  border-color: rgba(244, 201, 122, 0.5);
-  background: linear-gradient(135deg, rgba(79, 189, 176, 0.25), rgba(244, 201, 122, 0.18));
-}
-
-.trust-icon {
-  font-size: 1.2rem;
-}
-
-.trust-text {
-  color: #fff;
-  font-size: 0.85rem;
-  font-weight: 600;
-  white-space: nowrap;
-}
-
 /* Responsive */
 @media (max-width: 968px) {
   .achv-grid {
     grid-template-columns: repeat(2, 1fr);
-    grid-auto-rows: 240px;
+    grid-auto-rows: minmax(240px, auto);
   }
 
   .achv-card.featured {
@@ -691,7 +649,7 @@ onUnmounted(() => {
 @media (max-width: 640px) {
   .achv-grid {
     grid-template-columns: 1fr;
-    grid-auto-rows: 260px;
+    grid-auto-rows: minmax(260px, auto);
   }
 
   .achv-card.featured {
@@ -761,14 +719,6 @@ onUnmounted(() => {
   .partner-logo-frame {
     width: 80px;
     height: 80px;
-  }
-
-  .trust-pill {
-    padding: 0.65rem 1.1rem;
-  }
-
-  .trust-text {
-    font-size: 0.8rem;
   }
 }
 </style>
